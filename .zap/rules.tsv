@@ -1,0 +1,4 @@
+# ZAP scan alert configuration.
+# Format: <rule id>\t<IGNORE|INFO|WARN|FAIL|OUTOFSCOPE>\t<optional comment>
+# No rules are suppressed here on purpose: this app has intentional
+# vulnerabilities and findings should surface, not be filtered out.
