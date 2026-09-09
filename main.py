@@ -19,9 +19,9 @@ app.include_router(auth_controller.router)
 @app.middleware('http')
 async def add_headers(request, call_next):
     response = await call_next(request)
-    # ❌ DANGEREUX : valeur non standard, autorise l'affichage du site dans
-    # n'importe quelle iframe (clickjacking) -> doit être DENY ou SAMEORIGIN
-    response.headers['X-Frame-Options'] = 'ALLOWALL'
+    # ❌ DANGEREUX : expose la stack technique et sa version exacte,
+    # facilite le ciblage de vulnérabilités connues (CVE) par un attaquant
+    response.headers['Server'] = 'Apache/2.2.14 (Win32) PHP/5.5.9 mod_ssl/2.2.14 OpenSSL/0.9.8l'
     return response
 
 

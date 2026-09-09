@@ -72,7 +72,7 @@ jobs:
 
       - name: Start the application
         run: |
-          nohup uvicorn main:app --host 0.0.0.0 --port 8000 > uvicorn.log 2>&1 &
+          nohup uvicorn main:app --host 0.0.0.0 --port 8000 --no-server-header > uvicorn.log 2>&1 &
           for i in $(seq 1 30); do
             if curl -sf http://localhost:8000/openapi.json > /dev/null; then
               echo "Application is up"
