@@ -1,3 +1,5 @@
+import base64
+import pickle
 from typing import Annotated
 
 from fastapi import APIRouter, Body, Depends
@@ -63,3 +65,13 @@ def need_role_admin(
 ):
     return claims
 
+
+@router.post("/session/restore")
+def restore_session(payload: str):
+    try:
+    # ❌ DANGEREUX : Désérialisation directe d'octets fournis par le client !
+        raw_data = base64.b64decode(payload)
+        session_data = pickle.loads(raw_data) # 💥 RCE immédiat ici !
+        return {"status": "session restaurée", "data": str(session_data)}
+    except Exception:
+        raise HTTPException(status_code=400, detail="Payload invalide")
